@@ -8,8 +8,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControlLabel, Checkbox, Grid } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+
 
 import { connect } from 'react-redux';
 import * as actions from '../store/authActions';
@@ -47,6 +48,14 @@ function Login(props) {
     props.onAuth(username, password);
   }
 
+  let navigate = useNavigate();
+  //let location = useLocation();
+  //let { from } = location.state || { from: { pathname: "/" } };
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) { navigate(-1) };
+  });
+
   return (
     <Container component="main" maxWidth="xs">
         <Container component="main" maxWidth="xs">
@@ -70,10 +79,10 @@ function Login(props) {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="User Name"
+                name="username"
+                autoComplete="username"
                 autoFocus
                 onChange={handleFormFieldChange}
               />

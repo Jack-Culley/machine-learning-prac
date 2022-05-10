@@ -1,8 +1,17 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from './components/Home'
 
 import Login from "./components/Login";
+
+function PrivateRoute({isAuthenticated, children}) {
+    return (
+        isAuthenticated ? children : <Navigate to={{
+                pathname: "/login/",
+            }}
+        />
+      );
+}
 
 function Urls(props) {
 
@@ -11,7 +20,11 @@ function Urls(props) {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/login/" element={<Login {...props} />}/>
-                    <Route exact path="/" element={<Home {...props}/>}/>
+                    <Route exact path="/" element={
+                        <PrivateRoute isAuthenticated={props.isAuthenticated}>
+                            <Home {...props}/>
+                        </PrivateRoute>
+                    }/>
                 </Routes>
             </BrowserRouter>
         </div>
