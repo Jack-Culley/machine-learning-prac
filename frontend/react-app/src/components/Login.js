@@ -48,14 +48,6 @@ function Login(props) {
     props.onAuth(username, password);
   }
 
-  let navigate = useNavigate();
-  //let location = useLocation();
-  //let { from } = location.state || { from: { pathname: "/" } };
-
-  React.useEffect(() => {
-    if (props.isAuthenticated) { navigate(-1) };
-  });
-
   return (
     <Container component="main" maxWidth="xs">
         <Container component="main" maxWidth="xs">

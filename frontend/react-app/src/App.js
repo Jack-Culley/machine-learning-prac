@@ -10,7 +10,7 @@ function App(props) {
     // Similar to componentDidMount and componentDidUpdate:
     React.useEffect(() => {
       props.setAuthenticatedIfRequired();
-    }, []);
+    }, [props]);
 
   return (
     <div className="App">

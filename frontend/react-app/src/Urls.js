@@ -4,10 +4,19 @@ import Home from './components/Home'
 
 import Login from "./components/Login";
 
-function PrivateRoute({isAuthenticated, children}) {
+function PrivateRoute1({isAuthenticated, children}) {
     return (
         isAuthenticated ? children : <Navigate to={{
                 pathname: "/login/",
+            }}
+        />
+      );
+}
+
+function PrivateRoute2({isAuthenticated, children}) {
+    return (
+        !isAuthenticated ? children : <Navigate to={{
+                pathname: "/",
             }}
         />
       );
@@ -19,11 +28,15 @@ function Urls(props) {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/login/" element={<Login {...props} />}/>
+                    <Route exact path="/login/" element={
+                        <PrivateRoute2 isAuthenticated={props.isAuthenticated}>
+                            <Login {...props} />
+                        </PrivateRoute2>
+                    }/>
                     <Route exact path="/" element={
-                        <PrivateRoute isAuthenticated={props.isAuthenticated}>
+                        <PrivateRoute1 isAuthenticated={props.isAuthenticated}>
                             <Home {...props}/>
-                        </PrivateRoute>
+                        </PrivateRoute1>
                     }/>
                 </Routes>
             </BrowserRouter>
