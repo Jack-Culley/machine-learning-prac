@@ -9,6 +9,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import * as settings from '../settings';
+import { useSelector } from 'react-redux';
 
 
 
@@ -35,12 +36,15 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
   
-  function PasswordUpdate(props) {
+  function PasswordUpdate() {
     const classes = useStyles();
     const [new_password1, setNewPassword1] = React.useState(null);
     const [new_password2, setNewPassword2] = React.useState(null);
     const [success, setSuccess] = React.useState(false);
-  
+
+    const isAuthenticated = useSelector((state) => state.auth.token !== null && typeof state.auth.token !== 'undefined')
+    const token = useSelector((state) => state.auth.token)
+
     const handleFormFieldChange = (event) => {
       setSuccess(false);
       switch (event.target.id) {
@@ -56,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       if (new_password1 !== new_password2) {
         alert("Passwords don't match")
       } else {
-        let headers = { 'Authorization': `Token ${props.token}` };
+        let headers = { 'Authorization': `Token ${token}` };
         let method = 'post';
         let url = settings.API_SERVER + '/api/auth/update_password/';
         let passwordFormData = new FormData();

@@ -25,6 +25,15 @@ function PrivateRoute2({isAuthenticated, children}) {
       );
 }
 
+function PrivateRoute3({isAuthenticated, children}) {
+    return (
+        isAuthenticated ? children : <Navigate to={{
+                pathname: "/",
+            }}
+        />
+      );
+}
+
 function Urls() {
     const isAuthenticated = useSelector((state) => state.auth.token !== null && typeof state.auth.token !== 'undefined')
 
@@ -43,9 +52,9 @@ function Urls() {
                         </PrivateRoute1>
                     }/>
                     <Route exact path="/update_password/" element={
-                        <PrivateRoute2 isAuthenticated={isAuthenticated}>
+                        <PrivateRoute3 isAuthenticated={isAuthenticated}>
                             <PasswordUpdate />
-                        </PrivateRoute2>
+                        </PrivateRoute3>
                     }/>
                     <Route path="*" element={
                         <Navigate to={{
