@@ -45,6 +45,11 @@ function Urls(props) {
                             <PasswordUpdate {...props}/>
                         </PrivateRoute2>
                     }/>
+                    <Route path="*" element={
+                        <Navigate to={{
+                            pathname: "/login/",
+                        }}/>
+                    }/>
                 </Routes>
             </BrowserRouter>
         </div>
