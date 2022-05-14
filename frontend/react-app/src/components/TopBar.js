@@ -10,9 +10,13 @@ import * as actions from '../store/authActions';
 
 export default function TopBar(props) {
   
-  const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.auth.token !== null && typeof state.auth.token !== 'undefined');
   const dispatch = useDispatch();
 
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(actions.authLogout());
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -21,7 +25,7 @@ export default function TopBar(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Iris Species Predictor
           </Typography>
-          {isAuthenticated ? <Button color="inherit" onClick={dispatch(actions.authLogout())}>Logout</Button> : null}
+          {isAuthenticated ? <Button color="inherit" onClick={handleClick}>Logout</Button> : null}
           {isAuthenticated ? <Button color="inherit" href="/update_password/">Change Password</Button> : null}
         </Toolbar>
       </AppBar>

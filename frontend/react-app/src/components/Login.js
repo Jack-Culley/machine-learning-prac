@@ -9,7 +9,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormControlLabel, Checkbox, Grid } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom"
+
 
 import { connect } from 'react-redux';
 import * as actions from '../store/authActions';
@@ -28,9 +30,12 @@ function Copyright(props) {
 }
 
 
-function Login(props) {
+function Login() {
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.token !== null && typeof state.auth.token !== 'undefined');
 
   const [username, setuserName] = React.useState(null);
   const [password, setPassword] = React.useState(null);
@@ -48,6 +53,10 @@ function Login(props) {
     e.preventDefault();
     dispatch(actions.authLogin(username, password));
   }
+
+  React.useEffect(() => {
+    if(isAuthenticated) { navigate('/', {replace: true}) } 
+  }, [])
 
   return (
     <Container component="main" maxWidth="xs">

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from './components/Home';
 import PasswordUpdate from './components/PasswordUpdate';
 import Login from "./components/Login";
+import { useSelector } from 'react-redux';
 
 
 //isAuthenticated is false when we press change password but true when we go to login
@@ -24,25 +25,26 @@ function PrivateRoute2({isAuthenticated, children}) {
       );
 }
 
-function Urls(props) {
+function Urls() {
+    const isAuthenticated = useSelector((state) => state.auth.token !== null && typeof state.auth.token !== 'undefined')
 
     return (
         <div>
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/login/" element={
-                        <PrivateRoute2 isAuthenticated={props.isAuthenticated}>
-                            <Login {...props} />
+                        <PrivateRoute2 isAuthenticated={isAuthenticated}>
+                            <Login />
                         </PrivateRoute2>
                     }/>
                     <Route exact path="/" element={
-                        <PrivateRoute1 isAuthenticated={props.isAuthenticated}>
-                            <Home {...props}/>
+                        <PrivateRoute1 isAuthenticated={isAuthenticated}>
+                            <Home />
                         </PrivateRoute1>
                     }/>
                     <Route exact path="/update_password/" element={
-                        <PrivateRoute2 isAuthenticated={props.isAuthenticated}>
-                            <PasswordUpdate {...props}/>
+                        <PrivateRoute2 isAuthenticated={isAuthenticated}>
+                            <PasswordUpdate />
                         </PrivateRoute2>
                     }/>
                     <Route path="*" element={

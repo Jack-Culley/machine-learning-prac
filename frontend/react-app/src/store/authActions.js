@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './authActionTypes';
 import * as settings from '../settings';
+import { useDispatch } from 'react-redux';
 
 const SESSION_DURATION = settings.SESSION_DURATION
 
@@ -45,7 +46,7 @@ export const authFail = error => {
 
 export const authLogout = () => {
     const token = localStorage.getItem('token');
-    if (token === undefined){
+    if (token === undefined || token === null){
         localStorage.removeItem('expirationDate');
     } else {
         axios.post(`${settings.API_SERVER}/api/auth/logout/`, {

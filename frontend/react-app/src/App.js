@@ -5,19 +5,19 @@ import Layout from './components/Layout';
 import { connect } from 'react-redux';
 import * as actions from './store/authActions';
 
-function App(props) {
+function App({store}) {
 
     const dispatch = useDispatch();
 
     // Similar to componentDidMount and componentDidUpdate:
     React.useEffect(() => {
       dispatch(actions.authCheckState())
-    }, []);
+    }, [store]);
 
   return (
     <div className="App">
-      <Layout {...props}>
-        <Urls {...props}/>
+      <Layout >
+        <Urls />
       </Layout>
     </div>
   );

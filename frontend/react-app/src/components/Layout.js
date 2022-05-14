@@ -4,13 +4,13 @@ import Footer from "./Footer"
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
-function Layout(props) {
+function Layout({ children }) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopBar {...props} />
+            <TopBar />
             <div>
-                {props.children}
+                {children}
             </div>
             <Footer />
         </React.Fragment>
