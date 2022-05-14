@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormControlLabel, Checkbox, Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 import { connect } from 'react-redux';
 import * as actions from '../store/authActions';
@@ -29,6 +30,8 @@ function Copyright(props) {
 
 function Login(props) {
 
+  const dispatch = useDispatch();
+
   const [username, setuserName] = React.useState(null);
   const [password, setPassword] = React.useState(null);
 
@@ -43,7 +46,7 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onAuth(username, password);
+    dispatch(actions.authLogin(username, password));
   }
 
   return (
@@ -121,8 +124,8 @@ function Login(props) {
 
   const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (username, password) => dispatch(actions.authLogin(username, password)) 
+        // onAuth: (username, password) => dispatch(actions.authLogin(username, password)) 
     }
   }
   
-  export default connect(null, mapDispatchToProps)(Login);
+  export default connect(null, null)(Login);
