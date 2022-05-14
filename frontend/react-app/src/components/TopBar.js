@@ -15,6 +15,7 @@ export default function TopBar(props) {
             Iris Species Predictor
           </Typography>
           {props.isAuthenticated ? <Button color="inherit" onClick={() => props.logout()}>Logout</Button> : null}
+          {props.isAuthenticated ? <Button color="inherit" href="/update_password/">Change Password</Button> : null}
         </Toolbar>
       </AppBar>
     </Box>

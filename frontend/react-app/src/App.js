@@ -23,6 +23,8 @@ function App(props) {
 
 //This means that one or more of the redux states in the store are available as props
 const mapStateToProps = (state) => {
+  console.log(typeof state.auth.token);
+  console.log(state.auth.token);
   return {
     isAuthenticated: state.auth.token !== null && typeof state.auth.token !== 'undefined',
     token: state.auth.token
